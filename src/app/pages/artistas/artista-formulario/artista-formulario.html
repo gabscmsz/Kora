@@ -1,130 +1,124 @@
-<main class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <h1 class="artist-form-title mb-4">{{ artista.id ? 'Alterar artista' : 'Novo artista' }}</h1>
+<app-header></app-header>
 
-      <form class="card card-body artist-form-card" (ngSubmit)="salvar()" #artistaForm="ngForm">
-        <div class="row g-3">
+<div class="pagina">
+  <app-sidebar></app-sidebar>
 
-          <div class="col-md-6">
-            <label for="photo" class="form-label">Foto</label>
-            <input               
-              id="photo"
-              class="form-control"
-              type="file"
-              name="photo"
-              (change)="onFileSelected($event)"
-              [required]="!artista.id">
-            <div class="form-text" *ngIf="artista.photo">
-              Arquivo selecionado: {{ artista.photo }}
+  <main class="conteudo">
+    <div class="container py-4 py-md-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <header class="profile-heading mb-4">
+            <span class="profile-eyebrow">Meu ritmo</span>
+            <h1 class="artist-form-title">{{ artista.id ? 'Editar perfil de artista' : 'Novo artista' }}</h1>
+            <p>Apresente seu projeto e conecte-se com a comunidade.</p>
+          </header>
+
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/perfil"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                  <path
+                    d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5" />
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                </svg></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active"
+                [routerLink]="artista.id ? ['/artistas', artista.id, 'editar'] : ['/artistas/novo']">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-star-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                </svg></a>
+            </li>
+          </ul>
+          <form class="card card-body artist-form-card" (ngSubmit)="salvar()" #artistaForm="ngForm">
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label for="photo" class="form-label">Foto</label>
+                <input id="photo" class="form-control" type="file" name="photo" (change)="onFileSelected($event)"
+                  [required]="!artista.id">
+                <div class="form-text" *ngIf="artista.photo">
+                  Arquivo selecionado: {{ artista.photo }}
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label" for="stageName">Nome artistico *</label>
+                <input id="stageName" class="form-control" type="text" name="stage_name"
+                  [(ngModel)]="artista.stage_name" required>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="bio">Bio *</label>
+                <textarea id="bio" class="form-control" name="bio" rows="4" [(ngModel)]="artista.bio"
+                  required></textarea>
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label" for="city">Cidade *</label>
+                <input id="city" class="form-control" type="text" name="city" [(ngModel)]="artista.city" required>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label" for="state">Estado *</label>
+                <ng-select inputId="state" name="estado-UF" [items]="estados" [multiple]="false" [closeOnSelect]="false"
+                  [addTag]="true" addTagText="Adicionar" notFoundText="Nenhum resultado" placeholder="UF"
+                  [(ngModel)]="artista.state">
+                </ng-select>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="genres">Generos musicais</label>
+                <ng-select inputId="genres" name="generos" [items]="generosDisponiveis" [multiple]="true"
+                  [closeOnSelect]="false" [addTag]="true" addTagText="Adicionar" notFoundText="Nenhum resultado"
+                  placeholder="Selecione ou digite..." [(ngModel)]="generos" required>
+                </ng-select>
+                <div class="form-text">Entre em sintonia com quem curte o que você produz.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label" for="spotify">Spotify</label>
+                <div class="input-group">
+                  <span class="input-group-text">https://open.spotify.com/artist/</span>
+                  <input id="spotify" class="form-control" type="text" name="spotify" [(ngModel)]="spotifyUsuario"
+                    placeholder="codigo-do-artista">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label" for="instagram">Instagram</label>
+                <div class="input-group">
+                  <span class="input-group-text">https://instagram.com/</span>
+                  <input id="instagram" class="form-control" type="text" name="instagram" [(ngModel)]="instagramUsuario"
+                    placeholder="nome-do-perfil">
+                </div>
+              </div>
+
+              <div class="col-md-6" *ngIf="!artista.id">
+                <label class="form-label" for="confirmarSenha">Confirme sua senha *</label>
+                <input id="confirmarSenha" class="form-control" type="password" name="confirmarSenha"
+                  [(ngModel)]="confirmarSenha" autocomplete="current-password" required>
+              </div>
+
+              <div class="col-6 gap-4">
+                <button class="btn artist-primary-btn" type="submit" [disabled]="!artistaForm.valid">
+                  {{ artista.id ? 'Salvar alterações' : 'Cadastrar' }}
+                </button>
+
+                <button class="btn artist-delete-btn" type="button" *ngIf="artista.id" (click)="excluir()">
+                  Excluir
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
 
-          <div class="col-md-12">
-            <label class="form-label" for="stageName">Nome artistico *</label>
-            <input
-              id="stageName"
-              class="form-control"
-              type="text"
-              name="stage_name"
-              [(ngModel)]="artista.stage_name"
-              required>
-          </div>
-
-          <div class="col-12">
-            <label class="form-label" for="bio">Bio *</label>
-            <textarea
-              id="bio"
-              class="form-control"
-              name="bio"
-              rows="4"
-              [(ngModel)]="artista.bio"
-              required></textarea>
-          </div>
-
-          <div class="col-md-4">
-            <label class="form-label" for="state">Estado</label>
-            <input
-              id="state"
-              class="form-control"
-              type="text"
-              name="state"
-              [(ngModel)]="artista.state"
-              maxlength="2"
-              required>
-          </div>
-
-          <div class="col-md-8">
-            <label class="form-label" for="city">Cidade</label>
-            <input
-              id="city"
-              class="form-control"
-              type="text"
-              name="city"
-              [(ngModel)]="artista.city"
-              required>
-          </div>
-          
-          <div class="col-12">
-            <label class="form-label" for="genres">Generos musicais</label>
-            <ng-select
-              inputId="genres"
-              name="generos"
-              [items]="generosDisponiveis"
-              [multiple]="true"
-              [closeOnSelect]="false"
-              [addTag]="true"
-              addTagText="Adicionar"
-              notFoundText="Nenhum resultado"
-              placeholder="Selecione ou digite..."
-              [(ngModel)]="generos"
-              required>
-            </ng-select>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-label" for="spotify">Spotify</label>
-            <div class="input-group">
-              <span class="input-group-text">https://open.spotify.com/artist/</span>
-              <input
-                id="spotify"
-                class="form-control"
-                type="text"
-                name="spotify"
-                [(ngModel)]="spotifyUsuario"
-                placeholder="codigo-do-artista">
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label class="form-label" for="instagram">Instagram</label>
-            <div class="input-group">
-              <span class="input-group-text">https://instagram.com/</span>
-              <input
-                id="instagram"
-                class="form-control"
-                type="text"
-                name="instagram"
-                [(ngModel)]="instagramUsuario"
-                placeholder="nome-do-perfil">
-            </div>
-          </div>
-
-          <div class="col-12 d-flex gap-2">
-            <button class="btn artist-primary-btn" type="submit" [disabled]="!artistaForm.valid">
-              {{ artista.id ? 'Alterar' : 'Cadastrar' }}
-            </button>
-
-            <button class="btn artist-delete-btn" type="button" *ngIf="artista.id" (click)="excluir()">
-              Excluir
-            </button>
+          <div class="alert artist-form-alert mt-3" *ngIf="mensagem">
+            {{ mensagem }}
           </div>
         </div>
-      </form>
-
-      <div class="alert artist-form-alert mt-3" *ngIf="mensagem">
-        {{ mensagem }}
       </div>
     </div>
-  </div>
-</main>
+  </main>
+</div>

@@ -34,7 +34,7 @@
       "name": "User 1",
       "email": "newuser@gmail.com",
       "password": "new_user",
-      "city": "Belo Horizonte",
+      "city": "Contagem",
       "state": "MG",
       "fav_genres": [
         "Sertanejo",
@@ -42,44 +42,15 @@
         "MPB"
       ],
       "artists_liked": [],
-      "id": "Laq2rBh8hR4"
-    },
-    {
-      "username": "gabi",
-      "name": "Gabi",
-      "email": "email@mail.com",
-      "password": "123456",
-      "city": "Belo Horizonte",
-      "state": "",
-      "fav_genres": [
-        "Pop",
-        "Sertanejo"
-      ],
-      "artists_liked": [],
-      "id": "BzlBzcSG5Q4"
+      "id": "Laq2rBh8hR4",
+      "estado": "MG"
     }
   ],
   "artistas": [
     {
-      "id": "1",
       "user_id": "2",
-      "stage_name": "Nome Artista",
-      "bio": "Descrição do artista",
-      "photo": "artista1.png",
-      "city": "Belo Horizonte",
-      "state": "MG",
-      "genres": [
-        "rock",
-        "indie"
-      ],
-      "spotify": "spotify.com",
-      "instagram": "instagram.com",
-      "likes": 21
-    },
-    {
-      "user_id": "",
-      "stage_name": "Jao",
-      "bio": "uais",
+      "stage_name": "Artista",
+      "bio": "Minha história",
       "photo": "",
       "city": "Contagem",
       "state": "MG",

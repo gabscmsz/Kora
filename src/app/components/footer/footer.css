@@ -1,0 +1,63 @@
+:host {
+  display: block;
+}
+
+.kora-footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 72px;
+  padding: 16px clamp(20px, 5vw, 64px);
+  background: #292127;
+  color: #fff;
+  font-family: 'DM Sans', Arial, sans-serif;
+}
+
+.kora-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Bricolage Grotesque', Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.kora-footer-brand img {
+  filter: brightness(0) invert(1);
+}
+
+.kora-footer p {
+  margin: 0;
+  color: #d9cfd5;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.kora-footer-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.kora-footer-links a {
+  color: #fff;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.kora-footer-links a:hover {
+  color: #f3d9d2;
+}
+
+@media (max-width: 575.98px) {
+  .kora-footer {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .kora-footer-brand,
+  .kora-footer-links {
+    justify-content: center;
+  }
+}

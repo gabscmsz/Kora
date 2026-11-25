@@ -12,93 +12,68 @@
             <h1>Meu perfil</h1>
             <p>Conte um pouco sobre você e escolha os sons que quer descobrir.</p>
           </header>
-
-          <form
-            *ngIf="usuario; else perfilDesconectado"
-            class="card profile-card"
-            (ngSubmit)="salvar()"
+          
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/perfil"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                  <path
+                    d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5" />
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                </svg></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"
+                [routerLink]="artistaId ? ['/artistas', artistaId, 'editar'] : ['/artistas/novo']"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                </svg></a>
+            </li>
+          </ul>
+          <form *ngIf="usuario; else perfilDesconectado" class="card profile-card" (ngSubmit)="salvar()"
             #perfilForm="ngForm">
             <div class="card-body">
               <div class="row g-3">
                 <div class="col-md-6">
                   <label class="form-label" for="username">Nome de usuario</label>
-                  <input
-                    id="username"
-                    class="form-control"
-                    name="username"
-                    [(ngModel)]="usuario.username"
-                    required>
+                  <input id="username" class="form-control" name="username" [(ngModel)]="usuario.username" required>
                 </div>
 
                 <div class="col-md-6">
                   <label class="form-label" for="name">Nome</label>
-                  <input
-                    id="name"
-                    class="form-control"
-                    name="name"
-                    [(ngModel)]="usuario.name"
-                    required>
+                  <input id="name" class="form-control" name="name" [(ngModel)]="usuario.name" required>
                 </div>
 
                 <div class="col-12">
                   <label class="form-label" for="email">E-mail</label>
-                  <input
-                    id="email"
-                    class="form-control"
-                    type="email"
-                    name="email"
-                    [(ngModel)]="usuario.email"
-                    required>
+                  <input id="email" class="form-control" type="email" name="email" [(ngModel)]="usuario.email" required>
                 </div>
 
                 <div class="col-md-8">
                   <label class="form-label" for="city">Cidade</label>
-                  <input
-                    id="city"
-                    class="form-control"
-                    name="city"
-                    [(ngModel)]="usuario.city"
-                    required>
+                  <input id="city" class="form-control" name="city" [(ngModel)]="usuario.city" required>
                 </div>
 
                 <div class="col-md-4">
                   <label class="form-label" for="state">Estado</label>
-                  <ng-select
-                    inputId="state"
-                    name="estado-UF"
-                    [items]="estados"
-                    [multiple]="false"
-                    [closeOnSelect]="false"
-                    [addTag]="true"
-                    addTagText="Adicionar"
-                    notFoundText="Nenhum resultado"
-                    placeholder="UF"
-                    [(ngModel)]="usuario.fav_genres">
+                  <ng-select inputId="state" name="estado-UF" [items]="estados" [multiple]="false"
+                    [closeOnSelect]="true" [addTag]="true" addTagText="Adicionar" notFoundText="Nenhum resultado"
+                    placeholder="UF" [(ngModel)]="usuario.estado">
                   </ng-select>
                 </div>
 
                 <div class="col-12">
                   <label class="form-label" for="favoriteGenres">Generos favoritos</label>
-                  <ng-select
-                    inputId="favoriteGenres"
-                    name="fav_genres"
-                    [items]="generosDisponiveis"
-                    [multiple]="true"
-                    [closeOnSelect]="false"
-                    [addTag]="true"
-                    addTagText="Adicionar"
-                    notFoundText="Nenhum resultado"
-                    placeholder="Selecione ou digite seus generos favoritos"
-                    [(ngModel)]="usuario.fav_genres">
+                  <ng-select inputId="favoriteGenres" name="fav_genres" [items]="generosDisponiveis" [multiple]="true"
+                    [closeOnSelect]="false" [addTag]="true" addTagText="Adicionar" notFoundText="Nenhum resultado"
+                    placeholder="Selecione ou digite seus generos favoritos" [(ngModel)]="usuario.fav_genres">
                   </ng-select>
                   <div class="form-text">Esses generos ajudam a personalizar suas descobertas.</div>
                 </div>
 
                 <div class="col-12 d-flex flex-wrap gap-2 pt-2">
-                  <button
-                    class="btn profile-save-btn"
-                    type="submit"
-                    [disabled]="!perfilForm.valid || salvando">
+                  <button class="btn profile-save-btn" type="submit" [disabled]="!perfilForm.valid || salvando">
                     {{ salvando ? 'Salvando...' : 'Salvar perfil' }}
                   </button>
                   <button class="btn profile-logout-btn" type="button" (click)="sair()">
@@ -118,10 +93,7 @@
             </div>
           </ng-template>
 
-          <div
-            *ngIf="mensagem"
-            class="alert mt-3"
-            [class.alert-success]="mensagem === 'Perfil atualizado.'"
+          <div *ngIf="mensagem" class="alert mt-3" [class.alert-success]="mensagem === 'Perfil atualizado.'"
             [class.alert-danger]="mensagem !== 'Perfil atualizado.'">
             {{ mensagem }}
           </div>

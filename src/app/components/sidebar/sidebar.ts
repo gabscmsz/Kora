@@ -14,7 +14,7 @@ export class Sidebar {
   get cidadeUsuario(): string {
     const usuarioSalvo = sessionStorage.getItem('usuarioLogado');
     if (!usuarioSalvo) {
-      return 'Belo Horizonte, MG';
+      return 'Adicione sua cidade';
     }
 
     const usuario = JSON.parse(usuarioSalvo);

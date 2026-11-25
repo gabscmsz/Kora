@@ -2,13 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Artista } from '../../../models/artista.model';
 import { Usuario } from '../../../models/usuario.model';
 import { ArtistaService } from '../../../services/artista';
+import { UsuarioService } from '../../../services/usuario.service';
+import { Header } from '../../../components/header/header';
+import { Sidebar } from '../../../components/sidebar/sidebar';
 
 @Component({
-  imports: [CommonModule, FormsModule, NgSelectModule],
+  imports: [CommonModule, FormsModule, NgSelectModule, RouterLink, Header, Sidebar],
   selector: 'app-artista-formulario',
   styleUrl: './artista-formulario.css',
   templateUrl: './artista-formulario.html',
@@ -17,6 +20,7 @@ export class ArtistaFormulario implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private artistaService = inject(ArtistaService);
+  private usuarioService = inject(UsuarioService);
 
   artista: Artista = {
     user_id: '',
@@ -43,9 +47,15 @@ export class ArtistaFormulario implements OnInit {
     'Blues',
     'Eletronica'
   ];
+
+  estados = [
+      "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"
+    ]
+    
   generos: string[] = [];
   spotifyUsuario = '';
   instagramUsuario = '';
+  confirmarSenha = '';
   mensagem = '';
 
   ngOnInit(): void {
@@ -56,33 +66,64 @@ export class ArtistaFormulario implements OnInit {
 
       if (usuarioSalvo) {
         const usuario: Usuario = JSON.parse(usuarioSalvo);
-        this.artista.user_id = usuario.id ?? '';
+        if (!usuario.id) {
+          this.mensagem = 'Nao foi possivel identificar o usuario desta sessao.';
+          return;
+        }
+
+        this.artista.user_id = usuario.id;
+        this.artistaService.getArtistas().subscribe({
+          next: artistas => {
+            const artistaExistente = artistas.find(
+              artista => String(artista.user_id) === String(usuario.id)
+            );
+
+            if (!artistaExistente) {
+              return;
+            }
+
+            if (!artistaExistente.id) {
+              this.mensagem = 'Nao foi possivel identificar o perfil de artista.';
+              return;
+            }
+
+            this.carregarArtista(artistaExistente);
+            this.router.navigate(
+              ['/artistas', artistaExistente.id, 'editar'],
+              { replaceUrl: true }
+            );
+          },
+          error: () => this.mensagem = 'Nao foi possivel verificar seu perfil de artista.'
+        });
       }
       return;
     }
 
     if (id) {
       this.artistaService.getArtistaById(id).subscribe({
-        next: artista => {
-          this.artista = artista;
-          this.generos = Array.isArray(artista.genres)
-            ? artista.genres
-            : [];
-          this.spotifyUsuario = this.removerPrefixo(
-            artista.spotify,
-            'https://open.spotify.com/artist/'
-          );
-          this.instagramUsuario = this.removerPrefixo(
-            artista.instagram,
-            'https://instagram.com/'
-          );
-        },
-        error: () => this.mensagem = 'Nao foi possivel carregar o artista.'
+        next: artista => this.carregarArtista(artista),
+        error: () => this.mensagem = 'Quer ser artista? Complete o cadastro e envie seu perfil para aprovação.'
       });
     }
   }
 
+  private carregarArtista(artista: Artista): void {
+    this.artista = artista;
+    this.generos = Array.isArray(artista.genres)
+      ? artista.genres
+      : [];
+    this.spotifyUsuario = this.removerPrefixo(
+      artista.spotify,
+      'https://open.spotify.com/artist/'
+    );
+    this.instagramUsuario = this.removerPrefixo(
+      artista.instagram,
+      'https://instagram.com/'
+    );
+  }
+
   salvar(): void {
+    this.mensagem = '';
     this.artista.genres = this.generos;
     this.artista.spotify = this.spotifyUsuario
       ? `https://open.spotify.com/artist/${this.spotifyUsuario.replace(/^https:\/\/open\.spotify\.com\/artist\//, '')}`
@@ -99,9 +140,38 @@ export class ArtistaFormulario implements OnInit {
       return;
     }
 
-    this.artistaService.incluirArtista(this.artista).subscribe({
-      next: () => this.router.navigate(['/artistas']),
-      error: () => this.mensagem = 'Nao foi possivel cadastrar o artista.'
+    const usuarioSalvo = sessionStorage.getItem('usuarioLogado');
+    if (!usuarioSalvo) {
+      this.mensagem = 'Entre na sua conta para criar um perfil de artista.';
+      return;
+    }
+
+    const usuario: Usuario = JSON.parse(usuarioSalvo);
+    if (!usuario.id) {
+      this.mensagem = 'Nao foi possivel identificar o usuario desta sessao.';
+      return;
+    }
+    const userId = usuario.id;
+
+    if (!this.confirmarSenha) {
+      this.mensagem = 'Confirme sua senha para criar o perfil de artista.';
+      return;
+    }
+
+    this.usuarioService.getUsuarioById(userId).subscribe({
+      next: usuarioAtual => {
+        if (usuarioAtual.password !== this.confirmarSenha) {
+          this.mensagem = 'A senha informada nao confere.';
+          return;
+        }
+
+        this.artista.user_id = usuarioAtual.id ?? userId;
+        this.artistaService.incluirArtista(this.artista).subscribe({
+          next: () => this.router.navigate(['/artistas']),
+          error: () => this.mensagem = 'Nao foi possivel cadastrar o artista.'
+        });
+      },
+      error: () => this.mensagem = 'Nao foi possivel confirmar sua senha.'
     });
   }
 
@@ -130,8 +200,8 @@ export class ArtistaFormulario implements OnInit {
     }
 
     this.artistaService.excluirArtista(this.artista.id).subscribe({
-      next: () => this.router.navigate(['/artistas']),
-      error: () => this.mensagem = 'Nao foi possivel excluir o artista.'
+      next: () => this.router.navigate(['/perfil']),
+      error: () => this.mensagem = 'Perfil não cadastrado como artista.'
     });
   }
 }

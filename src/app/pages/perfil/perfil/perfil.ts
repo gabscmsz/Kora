@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Router, RouterLink } from '@angular/router';
+import { ArtistaService } from '../../../services/artista';
 import { Usuario } from '../../../models/usuario.model';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Header } from '../../../components/header/header';
@@ -17,9 +18,11 @@ import { Sidebar } from '../../../components/sidebar/sidebar';
 })
 export class Perfil implements OnInit {
   private usuarioService = inject(UsuarioService);
+  private artistaService = inject(ArtistaService);
   private router = inject(Router);
 
   usuario?: Usuario;
+  artistaId?: string | number;
   mensagem = '';
   salvando = false;
 
@@ -55,7 +58,17 @@ export class Perfil implements OnInit {
     }
 
     this.usuarioService.getUsuarioById(this.usuario.id).subscribe({
-      next: usuario => this.usuario = usuario,
+      next: usuario => {
+        this.usuario = usuario;
+        this.artistaService.getArtistas().subscribe({
+          next: artistas => {
+            this.artistaId = artistas.find(
+              artista => String(artista.user_id) === String(usuario.id)
+            )?.id;
+          },
+          error: () => this.mensagem = 'Nao foi possivel verificar o perfil de artista.'
+        });
+      },
       error: () => this.mensagem = 'Nao foi possivel carregar os dados do perfil.'
     });
   }
