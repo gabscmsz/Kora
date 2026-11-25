@@ -1,0 +1,135 @@
+<app-header [authMode]="true"></app-header>
+
+<main class="auth-page container-fluid py-4 py-lg-5">
+  <div class="row auth-layout align-items-center justify-content-center g-4">
+    <div class="col-lg-5 col-xl-4">
+      <section class="auth-promo-card">
+        <p class="auth-promo-eyebrow">Kora • música local</p>
+        <h2 class="auth-promo-title">Siga o som. Encontre sua gente.</h2>
+        <p class="auth-promo-copy">
+          É grátis. É local. É feito de gente como você.
+        </p>
+        <div class="auth-promo-symbol" aria-hidden="true">
+          <img src="/kora-symbol.svg" alt="">
+        </div>
+      </section>
+    </div>
+
+    <div class="col-md-9 col-lg-6 col-xl-5">
+      <header class="signup-heading mb-4">
+        <span class="signup-eyebrow">Seu ritmo começa aqui</span>
+        <h1>Faça parte da cena.</h1>
+        <p>Crie sua conta e descubra sons perto de você.</p>
+      </header>
+
+      <form class="card signup-card" (ngSubmit)="cadastrar()" #cadastroForm="ngForm">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="name">Seu nome *</label>
+              <input id="name" class="form-control" name="name" [(ngModel)]="usuario.name" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="username">Nome de usuário *</label>
+              <input id="username" class="form-control" name="username" [(ngModel)]="usuario.username" required>
+            </div>
+
+            <div class="col-md-8">
+              <label class="form-label" for="city">Cidade *</label>
+              <input id="city" class="form-control" name="city" [(ngModel)]="usuario.city" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label" for="state">Estado</label>
+              <ng-select
+                inputId="state"
+                name="estado-UF"
+                [items]="estados"
+                [multiple]="false"
+                [closeOnSelect]="false"
+                [addTag]="true"
+                addTagText="Adicionar"
+                notFoundText="Nenhum resultado"
+                placeholder="UF"
+                [(ngModel)]="usuario.fav_genres">
+              </ng-select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="favoriteGenres">Gêneros favoritos</label>
+              <ng-select
+                inputId="favoriteGenres"
+                name="fav_genres"
+                [items]="generosDisponiveis"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                [addTag]="true"
+                addTagText="Adicionar"
+                notFoundText="Nenhum resultado"
+                placeholder="Escolha os estilos que você curte"
+                [(ngModel)]="usuario.fav_genres">
+              </ng-select>
+              <div class="form-text">Você pode selecionar mais de um gênero.</div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="email">E-mail *</label>
+              <input id="email" class="form-control" type="email" name="email" [(ngModel)]="usuario.email" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="password">Senha *</label>
+              <input
+                id="password"
+                class="form-control"
+                type="password"
+                name="password"
+                [(ngModel)]="usuario.password"
+                autocomplete="new-password"
+                required
+                minlength="6">
+              <div class="form-text">Use pelo menos 6 caracteres.</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="confirmPassword">Confirmar senha *</label>
+              <input
+                id="confirmPassword"
+                class="form-control"
+                type="password"
+                name="confirmPassword"
+                [(ngModel)]="confirmarSenha"
+                autocomplete="new-password"
+                required>
+              <div class="form-text text-danger" *ngIf="confirmarSenha && usuario.password !== confirmarSenha">
+                As senhas não coincidem.
+              </div>
+            </div>
+
+            <div class="col-12 pt-2">
+              <button
+                class="btn signup-submit-btn w-100"
+                type="submit"
+                [disabled]="!cadastroForm.valid || usuario.password !== confirmarSenha">
+                Criar conta
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="alert signup-alert mt-3" *ngIf="mensagem" role="alert">
+        {{ mensagem }}
+      </div>
+
+      <p class="signup-login text-center mt-3">
+        Já tem uma conta? <a routerLink="/login">Entrar</a>
+      </p>
+
+      <p class="signup-note text-center mt-4">
+        É artista? Você poderá criar seu perfil após o cadastro.
+      </p>
+    </div>
+  </div>
+</main>

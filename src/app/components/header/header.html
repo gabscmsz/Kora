@@ -1,0 +1,34 @@
+<header class="topbar">
+  <a class="marca" routerLink="/" aria-label="Kora - início">
+    <img src="/kora-symbol.svg" width="28" height="23" alt="">
+    <span>Kora</span>
+    <small>A CENA BATE AQUI</small>
+  </a>
+
+  <ng-container *ngIf="!authMode; else authLinks">
+    <form class="pesquisa" role="search" (submit)="$event.preventDefault()">
+      <span aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        placeholder="Busque artistas, eventos e novos sons"
+        aria-label="Buscar artistas e eventos">
+    </form>
+
+    <span class="tagline">LOCAL. INDEPENDENTE. SEU.</span>
+
+    <a class="comunidade" routerLink="/">
+      Minha comunidade
+    </a>
+
+    <a class="usuario" [routerLink]="linkUsuario">
+      <span class="avatar" aria-hidden="true">{{ inicialUsuario }}</span>
+      <strong>{{ nomeExibido }}</strong>
+    </a>
+  </ng-container>
+
+  <ng-template #authLinks>
+    <a class="auth-home-link" routerLink="/">
+      Explorar sem entrar <span aria-hidden="true">→</span>
+    </a>
+  </ng-template>
+</header>

@@ -1,0 +1,108 @@
+:host {
+  display: block;
+  min-height: 100%;
+  background: #f8f5f2;
+  color: #292127;
+  font-family: 'DM Sans', Arial, sans-serif;
+}
+
+.login-heading .login-eyebrow {
+  color: #a64047;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.login-heading h1 {
+  margin: 0.35rem 0;
+  color: #292127;
+  font-family: 'Bricolage Grotesque', Arial, sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  font-weight: 700;
+}
+
+.login-heading p {
+  margin: 0;
+  color: #67595f;
+}
+
+.login-card {
+  width: 75%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.login-card .card-body {
+  padding: 0;
+}
+
+.login-card .form-label {
+  color: #292127;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.login-card .form-control {
+  min-height: 46px;
+  border-color: #e7ddd9;
+  border-radius: 12px;
+  color: #292127;
+}
+
+.login-card .form-control:focus {
+  border-color: #e86c63;
+  box-shadow: 0 0 0 0.2rem rgba(232, 108, 99, 0.18);
+}
+
+.login-submit-btn {
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: #a64047;
+  color: #fff;
+  font-weight: 700;
+}
+
+.login-submit-btn:hover:not(:disabled) {
+  background: #8f343b;
+  color: #fff;
+}
+
+.login-submit-btn:disabled {
+  background: #c9a1a1;
+  color: #fff;
+}
+
+.login-alert {
+  width: 75%;
+  margin-right: 0;
+  margin-left: 0;
+  border-color: #f0c7c1;
+  border-radius: 14px;
+  background: #f9e6e2;
+  color: #8f343b;
+}
+
+.login-signup {
+  width: 75%;
+  margin-right: 0;
+  margin-left: 0;
+  color: #67595f;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.login-signup a {
+  color: #a64047;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-signup a:hover {
+  color: #8f343b;
+  text-decoration: underline;
+}
+

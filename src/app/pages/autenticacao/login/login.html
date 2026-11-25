@@ -1,0 +1,72 @@
+<app-header [authMode]="true"></app-header>
+
+<main class="auth-page container-fluid py-4 py-lg-5">
+  <div class="row auth-layout align-items-center justify-content-center g-4">
+    <div class="col-lg-5 col-xl-4">
+      <section class="auth-promo-card">
+        <p class="auth-promo-eyebrow">Kora • música local</p>
+        <h2 class="auth-promo-title">Música que faz o peito bater.</h2>
+        <p class="auth-promo-copy">
+          Conecte-se com artistas locais e compartilhe sua paixão.
+        </p>
+        <div class="auth-promo-symbol" aria-hidden="true">
+          <img src="/kora-symbol.svg" alt="">
+        </div>
+      </section>
+    </div>
+
+    <div class="col-md-9 col-lg-6 col-xl-5">
+      <header class="login-heading mb-4">
+        <span class="login-eyebrow">Bom ter você de volta</span>
+        <h1>Entre no seu ritmo</h1>
+        <p>Seus artistas, seus encontros, sua comunidade.</p>
+      </header>
+
+      <form class="card login-card" (ngSubmit)="entrar()" #loginForm="ngForm">
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label" for="email">E-mail</label>
+            <input
+              id="email"
+              class="form-control"
+              type="email"
+              name="email"
+              placeholder="voce@exemplo.com"
+              [(ngModel)]="email"
+              autocomplete="email"
+              required>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="password">Senha</label>
+            <input
+              id="password"
+              class="form-control"
+              type="password"
+              name="password"
+              placeholder="Digite sua senha"
+              [(ngModel)]="password"
+              autocomplete="current-password"
+              required>
+          </div>
+
+          <button
+            class="btn login-submit-btn w-100"
+            type="submit"
+            [disabled]="!loginForm.valid || entrando">
+            {{ entrando ? 'Entrando...' : 'Entrar' }}
+          </button>
+        </div>
+      </form>
+
+      <div *ngIf="mensagem" class="alert login-alert mt-3" role="alert">
+        {{ mensagem }}
+      </div>
+
+      <p class="login-signup text-center mt-4">
+        Ainda não tem uma conta?
+        <a routerLink="/cadastro">Cadastre-se</a>
+      </p>
+    </div>
+  </div>
+</main>

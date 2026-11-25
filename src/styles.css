@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:opsz,wght@9..40,100..1000&display=swap');
+@import '@ng-select/ng-select/themes/default.theme.css';
+
+body {
+  background: #D9D9D9;
+}
+
+.auth-page {
+  min-height: calc(100vh - 64px);
+  background: #f8f5f2;
+  color: #292127;
+  font-family: 'DM Sans', Arial, sans-serif;
+}
+
+.auth-layout {
+  --bs-gutter-x: clamp(4rem, 8vw, 6rem);
+}
+
+.auth-promo-card {
+  display: flex;
+  min-height: 410px;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  border-radius: 24px;
+  background: #e86c63;
+  color: #292127;
+}
+
+.auth-promo-eyebrow {
+  margin-bottom: 1rem;
+  color: #6f3437;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.auth-promo-title {
+  max-width: 12ch;
+  margin: 0;
+  color: #292127;
+  font-family: 'Bricolage Grotesque', Arial, sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.auth-promo-copy {
+  max-width: 32ch;
+  margin: 1rem 0 0;
+  color: #44363f;
+  font-size: 0.95rem;
+}
+
+.auth-promo-symbol {
+  display: flex;
+  width: 100%;
+  min-height: 100px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  border-radius: 18px;
+  background: #292127;
+}
+
+.auth-promo-symbol img {
+  width: 76px;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 991.98px) {
+  .auth-layout {
+    --bs-gutter-x: 1.5rem;
+  }
+
+  .auth-promo-card {
+    min-height: 280px;
+  }
+
+  .auth-promo-symbol {
+    min-height: 70px;
+    margin-top: 1.25rem;
+  }
+}

@@ -1,0 +1,130 @@
+<main class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h1 class="artist-form-title mb-4">{{ artista.id ? 'Alterar artista' : 'Novo artista' }}</h1>
+
+      <form class="card card-body artist-form-card" (ngSubmit)="salvar()" #artistaForm="ngForm">
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <label for="photo" class="form-label">Foto</label>
+            <input               
+              id="photo"
+              class="form-control"
+              type="file"
+              name="photo"
+              (change)="onFileSelected($event)"
+              [required]="!artista.id">
+            <div class="form-text" *ngIf="artista.photo">
+              Arquivo selecionado: {{ artista.photo }}
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label" for="stageName">Nome artistico *</label>
+            <input
+              id="stageName"
+              class="form-control"
+              type="text"
+              name="stage_name"
+              [(ngModel)]="artista.stage_name"
+              required>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label" for="bio">Bio *</label>
+            <textarea
+              id="bio"
+              class="form-control"
+              name="bio"
+              rows="4"
+              [(ngModel)]="artista.bio"
+              required></textarea>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label" for="state">Estado</label>
+            <input
+              id="state"
+              class="form-control"
+              type="text"
+              name="state"
+              [(ngModel)]="artista.state"
+              maxlength="2"
+              required>
+          </div>
+
+          <div class="col-md-8">
+            <label class="form-label" for="city">Cidade</label>
+            <input
+              id="city"
+              class="form-control"
+              type="text"
+              name="city"
+              [(ngModel)]="artista.city"
+              required>
+          </div>
+          
+          <div class="col-12">
+            <label class="form-label" for="genres">Generos musicais</label>
+            <ng-select
+              inputId="genres"
+              name="generos"
+              [items]="generosDisponiveis"
+              [multiple]="true"
+              [closeOnSelect]="false"
+              [addTag]="true"
+              addTagText="Adicionar"
+              notFoundText="Nenhum resultado"
+              placeholder="Selecione ou digite..."
+              [(ngModel)]="generos"
+              required>
+            </ng-select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="spotify">Spotify</label>
+            <div class="input-group">
+              <span class="input-group-text">https://open.spotify.com/artist/</span>
+              <input
+                id="spotify"
+                class="form-control"
+                type="text"
+                name="spotify"
+                [(ngModel)]="spotifyUsuario"
+                placeholder="codigo-do-artista">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="instagram">Instagram</label>
+            <div class="input-group">
+              <span class="input-group-text">https://instagram.com/</span>
+              <input
+                id="instagram"
+                class="form-control"
+                type="text"
+                name="instagram"
+                [(ngModel)]="instagramUsuario"
+                placeholder="nome-do-perfil">
+            </div>
+          </div>
+
+          <div class="col-12 d-flex gap-2">
+            <button class="btn artist-primary-btn" type="submit" [disabled]="!artistaForm.valid">
+              {{ artista.id ? 'Alterar' : 'Cadastrar' }}
+            </button>
+
+            <button class="btn artist-delete-btn" type="button" *ngIf="artista.id" (click)="excluir()">
+              Excluir
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="alert artist-form-alert mt-3" *ngIf="mensagem">
+        {{ mensagem }}
+      </div>
+    </div>
+  </div>
+</main>

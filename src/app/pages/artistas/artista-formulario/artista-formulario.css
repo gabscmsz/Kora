@@ -1,0 +1,135 @@
+:host {
+  display: block;
+  min-height: 100%;
+  background: #f8f5f2;
+  color: #292127;
+  font-family: 'DM Sans', Arial, sans-serif;
+}
+
+.artist-form-title {
+  color: #292127;
+  font-family: 'Bricolage Grotesque', Arial, sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+}
+
+.artist-form-card {
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid #e7ddd9;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(41, 33, 39, 0.06);
+}
+
+.artist-form-card .form-label {
+  color: #292127;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.artist-form-card .form-control,
+.artist-form-card .input-group-text {
+  min-height: 44px;
+  border-color: #e7ddd9;
+  border-radius: 12px;
+  color: #292127;
+}
+
+.artist-form-card .form-control {
+  background-color: #fff;
+}
+
+.artist-form-card .form-control:focus {
+  border-color: #e86c63;
+  box-shadow: 0 0 0 0.2rem rgba(232, 108, 99, 0.18);
+}
+
+.artist-form-card textarea.form-control {
+  min-height: 120px;
+}
+
+.artist-form-card .input-group-text {
+  background: #f8f5f2;
+  color: #67595f;
+  font-size: 0.78rem;
+}
+
+.artist-form-card .input-group .form-control {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.artist-form-card .input-group-text {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.artist-primary-btn,
+.artist-delete-btn {
+  min-height: 42px;
+  padding: 0.6rem 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.artist-primary-btn {
+  background: #a64047;
+}
+
+.artist-primary-btn:hover:not(:disabled) {
+  background: #8f343b;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.artist-primary-btn:disabled {
+  background: #c9a1a1;
+  color: #fff;
+}
+
+.artist-delete-btn {
+  background: #292127;
+}
+
+.artist-delete-btn:hover {
+  background: #44363f;
+  color: #fff;
+}
+
+.artist-form-alert {
+  border-color: #f0c7c1;
+  border-radius: 14px;
+  background: #f9e6e2;
+  color: #8f343b;
+}
+
+:host ::ng-deep .artist-form-card .ng-select .ng-select-container {
+  min-height: 44px;
+  border-color: #e7ddd9;
+  border-radius: 12px;
+  background: #fff;
+}
+
+:host ::ng-deep .artist-form-card .ng-select.ng-select-focused .ng-select-container {
+  border-color: #e86c63;
+  box-shadow: 0 0 0 0.2rem rgba(232, 108, 99, 0.18);
+}
+
+:host ::ng-deep .artist-form-card .ng-select .ng-value {
+  border-radius: 999px;
+  background: #f3d9d2;
+  color: #292127;
+}
+
+@media (max-width: 575px) {
+  .artist-form-card .input-group-text {
+    max-width: 52%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

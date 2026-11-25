@@ -1,0 +1,149 @@
+<app-header [authMode]="true"></app-header>
+
+<main class="auth-page container-fluid py-4 py-lg-5">
+  <div class="row auth-layout align-items-center justify-content-center g-4">
+    <div class="col-lg-5 col-xl-4">
+      <header class="signup-heading mb-4">
+        <span class="signup-eyebrow">Seu ritmo começa aqui</span>
+        <h1>Faça parte da cena.</h1>
+        <p>Crie sua conta e descubra sons perto de você.</p>
+      </header>
+
+      <form class="card signup-card" (ngSubmit)="cadastrarEvento()" #cadastroForm="ngForm">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="name">Nome do evento *</label>
+              <input id="name" class="form-control" name="name" [(ngModel)]="evento.name" required>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label" for="description">Descrição</label>
+                <textarea
+                  id="description"
+                  class="form-control"
+                  name="description"
+                  rows="4"
+                  [(ngModel)]="evento.description"
+                  required></textarea>
+              </div>
+              
+              <div class="col-12">
+                <label class="form-label" for="favoriteGenres">Gêneros</label>
+                <ng-select
+                  inputId="favoriteGenres"
+                  name="fav_genres"
+                  [items]="generosDisponiveis"
+                  [multiple]="true"
+                  [closeOnSelect]="false"
+                  [addTag]="true"
+                  addTagText="Adicionar"
+                  notFoundText="Nenhum resultado"
+                  placeholder="Escolha os estilos que você curte"
+                  [(ngModel)]="evento.genres">
+                </ng-select>
+                <div class="form-text">Você pode selecionar mais de um gênero.</div>
+              </div>
+
+            <div class="col-md-8">
+              <label class="form-label" for="city">Cidade *</label>
+              <input id="city" class="form-control" name="city" [(ngModel)]="evento.city" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label" for="state">Estado</label>
+              <ng-select
+                inputId="state"
+                name="estado-UF"
+                [items]="estados"
+                [multiple]="false"
+                [closeOnSelect]="false"
+                [addTag]="true"
+                addTagText="Adicionar"
+                notFoundText="Nenhum resultado"
+                placeholder="UF"
+                [(ngModel)]="evento.state">
+              </ng-select>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label" for="date">Data </label>
+                <input id="date" class="form-control" type="date" name="date" [(ngModel)]="evento.date" required>
+              </div>
+              
+              <div class="col-12">
+                <label class="form-label" for="time">Horário *</label>
+                <input id="time" class="form-control" type="time" name="time" [(ngModel)]="evento.time" required>
+              </div>
+
+            <div class="col-12">
+              <label class="form-label" for="venue">Local *</label>
+              <input id="venue" class="form-control" type="text" name="venue" [(ngModel)]="evento.venue" required>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label" for="address">Endereço </label>
+                <input id="address" class="form-control" type="text" name="address" [(ngModel)]="evento.address" required>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                <span class="input-group-text">.00</span>
+              </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="password">Senha *</label>
+              <input
+                id="password"
+                class="form-control"
+                type="password"
+                name="password"
+                [(ngModel)]="usuario.password"
+                autocomplete="new-password"
+                required
+                minlength="6">
+              <div class="form-text">Use pelo menos 6 caracteres.</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="confirmPassword">Confirmar senha *</label>
+              <input
+                id="confirmPassword"
+                class="form-control"
+                type="password"
+                name="confirmPassword"
+                [(ngModel)]="confirmarSenha"
+                autocomplete="new-password"
+                required>
+              <div class="form-text text-danger" *ngIf="confirmarSenha && usuario.password !== confirmarSenha">
+                As senhas não coincidem.
+              </div>
+            </div>
+
+            <div class="col-12 pt-2">
+              <button
+                class="btn signup-submit-btn w-100"
+                type="submit"
+                [disabled]="!cadastroForm.valid || usuario.password !== confirmarSenha">
+                Criar conta
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="alert signup-alert mt-3" *ngIf="mensagem" role="alert">
+        {{ mensagem }}
+      </div>
+
+      <p class="signup-login text-center mt-3">
+        Já tem uma conta? <a routerLink="/login">Entrar</a>
+      </p>
+
+      <p class="signup-note text-center mt-4">
+        É artista? Você poderá criar seu perfil após o cadastro.
+      </p>
+    </div>
+  </div>
+</main>

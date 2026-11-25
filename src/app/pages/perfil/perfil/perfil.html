@@ -1,0 +1,132 @@
+<app-header></app-header>
+
+<div class="pagina">
+  <app-sidebar></app-sidebar>
+
+  <main class="conteudo">
+    <div class="container py-4 py-md-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <header class="profile-heading mb-4">
+            <span class="profile-eyebrow">Meu ritmo</span>
+            <h1>Meu perfil</h1>
+            <p>Conte um pouco sobre você e escolha os sons que quer descobrir.</p>
+          </header>
+
+          <form
+            *ngIf="usuario; else perfilDesconectado"
+            class="card profile-card"
+            (ngSubmit)="salvar()"
+            #perfilForm="ngForm">
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label" for="username">Nome de usuario</label>
+                  <input
+                    id="username"
+                    class="form-control"
+                    name="username"
+                    [(ngModel)]="usuario.username"
+                    required>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label" for="name">Nome</label>
+                  <input
+                    id="name"
+                    class="form-control"
+                    name="name"
+                    [(ngModel)]="usuario.name"
+                    required>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label" for="email">E-mail</label>
+                  <input
+                    id="email"
+                    class="form-control"
+                    type="email"
+                    name="email"
+                    [(ngModel)]="usuario.email"
+                    required>
+                </div>
+
+                <div class="col-md-8">
+                  <label class="form-label" for="city">Cidade</label>
+                  <input
+                    id="city"
+                    class="form-control"
+                    name="city"
+                    [(ngModel)]="usuario.city"
+                    required>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label" for="state">Estado</label>
+                  <ng-select
+                    inputId="state"
+                    name="estado-UF"
+                    [items]="estados"
+                    [multiple]="false"
+                    [closeOnSelect]="false"
+                    [addTag]="true"
+                    addTagText="Adicionar"
+                    notFoundText="Nenhum resultado"
+                    placeholder="UF"
+                    [(ngModel)]="usuario.fav_genres">
+                  </ng-select>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label" for="favoriteGenres">Generos favoritos</label>
+                  <ng-select
+                    inputId="favoriteGenres"
+                    name="fav_genres"
+                    [items]="generosDisponiveis"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [addTag]="true"
+                    addTagText="Adicionar"
+                    notFoundText="Nenhum resultado"
+                    placeholder="Selecione ou digite seus generos favoritos"
+                    [(ngModel)]="usuario.fav_genres">
+                  </ng-select>
+                  <div class="form-text">Esses generos ajudam a personalizar suas descobertas.</div>
+                </div>
+
+                <div class="col-12 d-flex flex-wrap gap-2 pt-2">
+                  <button
+                    class="btn profile-save-btn"
+                    type="submit"
+                    [disabled]="!perfilForm.valid || salvando">
+                    {{ salvando ? 'Salvando...' : 'Salvar perfil' }}
+                  </button>
+                  <button class="btn profile-logout-btn" type="button" (click)="sair()">
+                    Sair
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <ng-template #perfilDesconectado>
+            <div class="card profile-card">
+              <div class="card-body">
+                <p class="mb-3">Entre na sua conta para ver e editar seu perfil.</p>
+                <a class="btn profile-save-btn" routerLink="/login">Entrar</a>
+              </div>
+            </div>
+          </ng-template>
+
+          <div
+            *ngIf="mensagem"
+            class="alert mt-3"
+            [class.alert-success]="mensagem === 'Perfil atualizado.'"
+            [class.alert-danger]="mensagem !== 'Perfil atualizado.'">
+            {{ mensagem }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,29 @@
+import { Routes } from '@angular/router';
+import { Home } from './pages/home/home';
+import { Artistas } from './pages/artistas/artistas/artistas';
+import { ArtistaDetalhe } from './pages/artistas/artista-detalhe/artista-detalhe';
+import { ArtistaFormulario } from './pages/artistas/artista-formulario/artista-formulario';
+import { Eventos } from './pages/eventos/eventos/eventos';
+import { EventoDetalhe } from './pages/eventos/evento-detalhe/evento-detalhe';
+import { EventoFormulario } from './pages/eventos/evento-formulario/evento-formulario';
+import { PublicacaoFormulario } from './pages/publicacoes/publicacao-formulario/publicacao-formulario';
+import { Login } from './pages/autenticacao/login/login';
+import { Cadastro } from './pages/autenticacao/cadastro/cadastro';
+import { Perfil } from './pages/perfil/perfil/perfil';
+
+export const routes: Routes = [
+  { path: '', component: Home },
+  { path: 'artistas', component: Artistas },
+  { path: 'artistas/novo', component: ArtistaFormulario },
+  { path: 'artistas/:id/editar', component: ArtistaFormulario },
+  { path: 'artistas/:id', component: ArtistaDetalhe },
+  { path: 'eventos', component: Eventos },
+  { path: 'eventos/novo', component: EventoFormulario },
+  { path: 'eventos/:id/editar', component: EventoFormulario },
+  { path: 'eventos/:id', component: EventoDetalhe },
+  { path: 'publicacoes/nova', component: PublicacaoFormulario },
+  { path: 'login', component: Login },
+  { path: 'cadastro', component: Cadastro },
+  { path: 'perfil', component: Perfil },
+  { path: '**', redirectTo: '' }
+];

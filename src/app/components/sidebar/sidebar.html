@@ -1,0 +1,35 @@
+<aside class="sidebar">
+  <span class="menu-titulo">EXPLORE</span>
+
+  <nav class="menu" aria-label="Navegação principal">
+    <a routerLink="/" routerLinkActive="ativo" [routerLinkActiveOptions]="{ exact: true }">
+      <span aria-hidden="true">⌂</span>Início
+    </a>
+    <a routerLink="/artistas" routerLinkActive="ativo">
+      <span aria-hidden="true">♫</span>Artistas
+    </a>
+    <a routerLink="/eventos" routerLinkActive="ativo">
+      <span aria-hidden="true">▦</span>Eventos
+    </a>
+  </nav>
+
+  <div class="linha"></div>
+
+  <span class="menu-titulo">MEU RITMO</span>
+  <nav class="menu" aria-label="Minha conta">
+    <a routerLink="/perfil" routerLinkActive="ativo">
+      <span aria-hidden="true">♙</span>Meu perfil
+    </a>
+  </nav>
+
+  <div class="cidade-card">
+    <small>SUA CIDADE</small>
+    <strong>{{ cidadeUsuario }}</strong>
+    <p>Tem som bom perto de você.</p>
+  </div>
+
+  <div class="sidebar-rodape">
+    Kora. De coração e batida.<br>
+    A cena local pulsa aqui.
+  </div>
+</aside>

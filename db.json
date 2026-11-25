@@ -1,0 +1,144 @@
+{
+  "usuarios": [
+    {
+      "id": "1",
+      "username": "@fan_user",
+      "name": "Usuário Fan Teste",
+      "email": "userfan@mail.com",
+      "password": "user-fan",
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "fav_genres": [
+        "Pop",
+        "Sertanejo"
+      ],
+      "artists_liked": [
+        "1"
+      ]
+    },
+    {
+      "id": "2",
+      "username": "@artist_user",
+      "name": "Usuário Artista Teste",
+      "email": "userartist@mail.com",
+      "password": "user-artist",
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "fav_genres": [
+        "rock"
+      ],
+      "artists_liked": []
+    },
+    {
+      "username": "new_user",
+      "name": "User 1",
+      "email": "newuser@gmail.com",
+      "password": "new_user",
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "fav_genres": [
+        "Sertanejo",
+        "Pop",
+        "MPB"
+      ],
+      "artists_liked": [],
+      "id": "Laq2rBh8hR4"
+    },
+    {
+      "username": "gabi",
+      "name": "Gabi",
+      "email": "email@mail.com",
+      "password": "123456",
+      "city": "Belo Horizonte",
+      "state": "",
+      "fav_genres": [
+        "Pop",
+        "Sertanejo"
+      ],
+      "artists_liked": [],
+      "id": "BzlBzcSG5Q4"
+    }
+  ],
+  "artistas": [
+    {
+      "id": "1",
+      "user_id": "2",
+      "stage_name": "Nome Artista",
+      "bio": "Descrição do artista",
+      "photo": "artista1.png",
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "genres": [
+        "rock",
+        "indie"
+      ],
+      "spotify": "spotify.com",
+      "instagram": "instagram.com",
+      "likes": 21
+    },
+    {
+      "user_id": "",
+      "stage_name": "Jao",
+      "bio": "uais",
+      "photo": "",
+      "city": "Contagem",
+      "state": "MG",
+      "genres": [
+        "MPB"
+      ],
+      "spotify": "https://open.spotify.com/artist/2323",
+      "instagram": "https://instagram.com/noem",
+      "likes": 0,
+      "id": "DpA2fjNlfZk"
+    }
+  ],
+  "eventos": [
+    {
+      "id": "1",
+      "owner_id": "2",
+      "artist_ids": [
+        "1"
+      ],
+      "name": "Nome do Evento",
+      "description": "Descrição do evento",
+      "cover": "evento1.png",
+      "genres": [
+        "rock"
+      ],
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "date": "2027-01-01",
+      "time": "18:30",
+      "venue": "Local do evento",
+      "address": "Endereço completo",
+      "price": 25,
+      "ticket_link": ""
+    }
+  ],
+  "publicacoes": [
+    {
+      "id": "1",
+      "artist_id": "1",
+      "title": "Título da publicação",
+      "text": "Texto da publicação",
+      "image": [
+        "post1.png",
+        "post2.png"
+      ],
+      "date": "2026-11-18",
+      "time": "14:15",
+      "likes": 43
+    }
+  ],
+  "comentarios": [
+    {
+      "id": "1",
+      "post_id": "1",
+      "user_id": "1",
+      "text": "Texto do comentário",
+      "date": "2026-11-18",
+      "time": "14:23"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
